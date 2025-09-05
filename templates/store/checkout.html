@@ -14,7 +14,8 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="" method="POST">
+            <h4 class="cart-title mb-4">Billing Address</h4>
+            <form action="{% url 'place_order' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col form_group">
@@ -83,7 +84,7 @@
                     <tr>
                         <td>
                             <figure class="itemside align-items-center">
-                                <div class="aside"><img src="{{cart_item.product.image.url}}" class="img-sm"></div>
+                                <div class="aside"><img src="{{cart_item.product.image1.url}}" class="img-sm"></div>
                                 <figcaption class="info">
                                     <a href="{{cart_item.product.get_url}}" class="title text-dark">{{cart_item.product.product_name}}</a>
                                     <p class="text-muted small">
@@ -109,7 +110,7 @@
                     </tr>
                     {% endfor %}
                     </tbody>
-                    </table>
+                </table>
                 <button type="submit" name="submmit" class="btn btn-primary btn-block">Place Order</button>
                 <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
             </form>

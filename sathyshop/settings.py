@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'accounts',
     'store',
     'carts',
+    'orders',
+    'slider',
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

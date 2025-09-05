@@ -13,6 +13,11 @@ from django.db.models import Q
 
 
 # Create your views here.
+
+for product in Product.objects.all():
+    product.display_features = [f for f in [product.feature1, product.feature2, product.feature3, product.feature4, product.feature5] if f][:3]
+
+
 def store(request, category_slug=None):
     categories = None
     parducts = None
@@ -26,7 +31,7 @@ def store(request, category_slug=None):
         product_count = products.count()
     else:
         products = Product.objects.all().filter(is_available = True).order_by('id')
-        paginator = Paginator(products, 1)
+        paginator = Paginator(products, 9)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
