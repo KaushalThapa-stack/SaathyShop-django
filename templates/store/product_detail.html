@@ -90,7 +90,8 @@
     .v1-tax-214{font-size:12px;color:var(--v1-130-sub);margin-top:2px}
 
     .v1-stars-220{display:flex;align-items:center;gap:8px;margin:10px 0 16px}
-    .v1-stars-220 .v1-star-221{color:#fbbf24;font-size:18px}
+    .v1-stars-220 .rating-star{display:flex;flex-direction:row;margin-right:5px}
+    .v1-stars-220 .rating-star i{margin:0;font-size:18px;float:none}
     .v1-stars-220 .v1-rev-222{font-size:12px;color:var(--v1-130-sub)}
 
     .v1-choose-230{font-size:14px;margin:18px 0 8px}
@@ -194,12 +195,19 @@
             <div class="v1-tax-214">NRP (Inclusive of all taxes)</div>
 
             <div class="v1-stars-220">
-              <span class="v1-star-221">★</span>
-              <span class="v1-star-221">★</span>
-              <span class="v1-star-221">★</span>
-              <span class="v1-star-221">★</span>
-              <span class="v1-star-221">★</span>
-              <span class="v1-rev-222">Rating 5 | 45 reviews</span>
+            <div class="rating-star">
+                  <!-- 1 star -->
+                  <i class="fa fa-star{% if single_product.averageReview < 0.5%}-o {% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                  <!-- 2 star -->
+                  <i class="fa fa-star{% if single_product.averageReview < 1.5%}-o {% elif single_product.averageReview >= 1.5 and single_product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                  <!-- 3 star -->
+                  <i class="fa fa-star{% if single_product.averageReview < 2.5%}-o {% elif single_product.averageReview >= 2.5 and single_product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                  <!-- 4 star -->
+                  <i class="fa fa-star{% if single_product.averageReview < 3.5%}-o {% elif single_product.averageReview >= 3.5 and single_product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                  <!-- 5 star -->
+                  <i class="fa fa-star{% if single_product.averageReview < 4.5%}-o {% elif single_product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+            </div>
+              <span class="v1-rev-222">Rating {{ avg_rating|floatformat:1 }} | {{ single_product.countReview }} reviews</span>
             </div>
 
             <div class="v1-choose-230">Choose your color:</div>
@@ -275,7 +283,111 @@
             </div>
         </div>
       {% endif %}
+      
     </section>
+    <br>
+
+    <div class="row">
+            <div class="col-md-9">
+
+
+        <form action="{% url 'submit_review' single_product.id %}" method="post">
+          {% csrf_token %}
+          <h5>Write your Review</h5>
+
+          <div>
+            <!-- Rating stars -->
+             <label for="rating">How do you rate this product?</label>
+             <br>
+              <div class="rate">
+                <input type="radio" id="rating10" name="rating" value="5" required/><label for="rating10" title="5"></label>
+                <input type="radio" id="rating9" name="rating" value="4.5" required/><label class="half" for="rating9" title="4.5"></label>
+                <input type="radio" id="rating8" name="rating" value="4" required/><label for="rating8" title="4"></label>
+                <input type="radio" id="rating7" name="rating" value="3.5" required/><label class="half" for="rating7" title="3.5"></label>  
+                <input type="radio" id="rating6" name="rating" value="3" required/><label for="rating6" title="3"></label>  
+                <input type="radio" id="rating5" name="rating" value="2.5" required/><label class="half" for="rating5" title="2.5"></label>
+                <input type="radio" id="rating4" name="rating" value="2" required/><label for="rating4" title="2"></label>
+                <input type="radio" id="rating3" name="rating" value="1.5" required/><label class="half" for="rating3" title="1.5"></label>
+                <input type="radio" id="rating2" name="rating" value="1" required/><label for="rating2" title="1"></label>
+                <input type="radio" id="rating1" name="rating" value="0.5" required/><label class="half" for="rating1" title="0.5"></label>
+              </div>
+              <br>
+
+
+            Review Title:
+            <input type="text" name="subject" class="form-control">
+            <br>
+            Reviews:
+            <textarea name="review" rows="4" class="form-control"></textarea>
+            <br>
+            {% if user.is_authenticated %}
+              {% if orderproduct %}
+                <input type="submit" value="Submit Review" class="btn btn-primary">
+              {% else %}
+                <p>You must purchase the product to review it.</p>
+              {% endif %}
+            {% else %}
+            <p>Please <a href="{% url 'login' %}">login</a> to submit a review.</p>
+            {% endif %}
+          </div>
+{% include 'includes/alerts.html' %}
+
+        </form>
+        <br>
+        <header class="section-heading">
+          <h3>Customer Reviews </h3>  
+          <div class="rating-star">
+                <!-- 1 star -->
+                <i class="fa fa-star{% if single_product.averageReview < 0.5%}-o {% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <!-- 2 star -->
+                <i class="fa fa-star{% if single_product.averageReview < 1.5%}-o {% elif single_product.averageReview >= 1.5 and single_product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <!-- 3 star -->
+                <i class="fa fa-star{% if single_product.averageReview < 2.5%}-o {% elif single_product.averageReview >= 2.5 and single_product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <!-- 4 star -->
+                <i class="fa fa-star{% if single_product.averageReview < 3.5%}-o {% elif single_product.averageReview >= 3.5 and single_product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <!-- 5 star -->
+                <i class="fa fa-star{% if single_product.averageReview < 4.5%}-o {% elif single_product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>Rating | {{ single_product.countReview }} reviews</span>
+              </div>
+        </header>
+
+      {%  for review in reviews %}
+        <article class="box mb-3">
+          <div class="icontext w-100">
+
+            <div class="text">
+              <span class="date text-muted float-md-right">{{review.updated_date}}</span>  
+              <h6 class="mb-1">{{review.user.full_name}} </h6>
+              <div class="rating-star">
+                <!-- 1 star -->
+                <i class="fa {% if review.rating >= 1 %}fa-star{% elif review.rating >= 0.5 %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+                <!-- 2 star -->
+                <i class="fa {% if review.rating >= 2 %}fa-star{% elif review.rating >= 1.5 %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+                <!-- 3 star -->
+                <i class="fa {% if review.rating >= 3 %}fa-star{% elif review.rating >= 2.5 %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+                <!-- 4 star -->
+                <i class="fa {% if review.rating >= 4 %}fa-star{% elif review.rating >= 3.5 %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+                <!-- 5 star -->
+                <i class="fa {% if review.rating >= 5 %}fa-star{% elif review.rating >= 4.5 %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+              </div>
+              
+            </div>
+          </div> <!-- icontext.// -->
+          <div class="mt-3">
+            <h6>
+              {{review.subject}}
+            </h6>
+            <p>
+              {{review.review}}
+            </p>	
+          </div>
+        </article>
+      {% endfor %}
+
+        
+
+        </div> <!-- col.// -->
+    </div> <!-- row.// -->
   </main>
 </body>
 
@@ -354,6 +466,83 @@ if (swatches.length > 0) {
 
 
 </script>
+
+document.addEventListener('DOMContentLoaded', function () {
+  const rate = document.querySelector('.rate');
+  if (!rate) return;
+
+  // inputs & labels
+  const inputs = Array.from(rate.querySelectorAll('input'));
+  let labels = Array.from(rate.querySelectorAll('label'));
+
+  // helper to get left-to-right visual order at runtime
+  function sortedLabels() {
+    return labels.slice().sort((a,b) => {
+      return a.getBoundingClientRect().left - b.getBoundingClientRect().left;
+    });
+  }
+
+  function clearActive() {
+    labels.forEach(l => l.classList.remove('active'));
+  }
+
+  function applySelected() {
+    labels.forEach(l => l.classList.remove('selected'));
+    const checked = rate.querySelector('input:checked');
+    if (!checked) return;
+    const lab = rate.querySelector('label[for="' + checked.id + '"]');
+    if (!lab) return;
+    const s = sortedLabels();
+    const idx = s.indexOf(lab);
+    if (idx < 0) return;
+    for (let i = 0; i <= idx; i++) s[i].classList.add('selected');
+  }
+
+  // attach events once (we recompute order on each mouseenter)
+  function bind() {
+    labels = Array.from(rate.querySelectorAll('label'));
+    const s = sortedLabels();
+    s.forEach((lab, i) => {
+      lab.addEventListener('mouseenter', () => {
+        clearActive();
+        for (let j = 0; j <= i; j++) s[j].classList.add('active');
+      });
+      lab.addEventListener('click', (e) => {
+        const relatedInput = rate.querySelector('#' + lab.htmlFor);
+        if (relatedInput) {
+          relatedInput.checked = true;
+          // dispatch change if you need server-side handlers listening
+          relatedInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        applySelected();
+      });
+    });
+  }
+
+  // clear hover when leaving the rating area
+  rate.addEventListener('mouseleave', () => {
+    clearActive();
+    applySelected();
+  });
+
+  // recompute labels & bind at start and on resize (keeps positions correct)
+  bind();
+  window.addEventListener('resize', () => {
+    // remove previous handlers by re-binding (safe for small sets)
+    // first remove old listeners by replacing the node (easy technique)
+    const old = rate.querySelectorAll('label');
+    old.forEach(l => {
+      l.replaceWith(l.cloneNode(true));
+    });
+    bind();
+    applySelected();
+  });
+
+  // initialize selection if any input is pre-checked
+  applySelected();
+});
+</script> -->
+
 
 
 </html>

@@ -151,6 +151,22 @@
 					<div class="price-wrap mt-2">
 						<span class="price">Rs.{{ product.price }}</span>
 					</div> <!-- price-wrap.// -->
+					<div class="rating-stars">
+						{% if product_ratings|get_item:product.id %}
+							{% with rating=product_ratings|get_item:product.id %}
+								{% for i in '12345' %}
+									{% if forloop.counter <= rating.avg_rating|floatformat:0|add:"0" %}
+										<span style="color: #fbbf24;">★</span>
+									{% else %}
+										<span style="color: #e5e7eb;">★</span>
+									{% endif %}
+								{% endfor %}
+								<span style="font-size: 12px; color: #6b7280;">{{ rating.avg_rating|floatformat:1 }} ({{ rating.review_count }})</span>
+							{% endwith %}
+						{% else %}
+							<span style="font-size: 12px; color: #6b7280;">No ratings yet</span>
+						{% endif %}
+					</div>
 				</div>
 				<a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Product</a>
 			</figcaption>
