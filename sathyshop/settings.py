@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+
 from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -21,10 +23,16 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
+SECRET_KEY = 'u%72#*)_u^n0#vdvuqu6fo=rwv!_vraie4=e-&+j$$&8j!%!b5'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -47,6 +55,7 @@ INSTALLED_APPS = [
     'admin_honeypot',
 ]
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
@@ -65,7 +74,6 @@ CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
 CSRF_COOKIE_HTTPONLY = False  # JavaScript needs access to the cookie
 CSRF_USE_SESSIONS = False  # Store CSRF token in cookie, not in session
 CSRF_COOKIE_SAMESITE = 'Lax'  # Prevents CSRF in most cross-site browsing contexts
-
 ROOT_URLCONF = 'sathyshop.urls'
 
 TEMPLATES = [

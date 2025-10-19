@@ -20,10 +20,7 @@ from carts.models import Cart, CartItem
 import requests
 
 
-
-
 # Create your views here.
-
 
 @csrf_exempt
 def register(request):
@@ -67,10 +64,6 @@ def register(request):
                 user.is_active = True
                 user.save()
 
-
-
-
-
             # messages.success(request, 'Thankyou for regesring with us. We have send you the verification mail.Please verify your account')
             return redirect('/accounts/login/?command=verification&email='+email)
 
@@ -81,8 +74,6 @@ def register(request):
     }
     return render(request, 'accounts/register.html', context)
 
-
-    
 
 
 def login(request):
@@ -156,7 +147,6 @@ def logout(request):
     auth.logout(request) 
     messages.success(request, 'You are loged out')
     return redirect('login')
-
 
 
 
@@ -260,7 +250,6 @@ def resetPassword(request):
             return redirect('resetPassword')
     else:
         return render(request, 'accounts/resetPassword.html')
-
 
 
 @login_required (login_url = 'login')
