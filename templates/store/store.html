@@ -27,153 +27,106 @@
 <div class="container">
 
 <div class="row">
-	<aside class="col-md-3">
-		
-<div class="card">
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Categories</h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_1" >
-			<div class="card-body">
-				
-				<ul class="list-menu">
-				<li><a href="{% url 'store' %}">All Products</a></li>
-				{% for category in links %}
-				<li><a href="{{ category.get_url }}">{{ category.category_name }}  </a></li>
-				{% endfor %}
-				</ul>
-
-			</div> <!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group  .// -->
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Sizes </h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_4" >
-			<div class="card-body">
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> XS </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> SM </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> LG </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> XXL </span>
-			  </label>
-		</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
-	
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Price range </h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_3" >
-			<div class="card-body">
-				
-				<div class="form-row">
-				<div class="form-group col-md-6">
-				  <label>Min</label>
-				  <!-- <input class="form-control" placeholder="$0" type="number"> -->
-				  	<select class="mr-2 form-control">
-						<option value="0">$0</option>
-						<option value="50">$50</option>
-						<option value="100">$100</option>
-						<option value="150">$150</option>
-						<option value="200">$200</option>
-						<option value="500">$500</option>
-						<option value="1000">$1000</option>
-					</select>
+	<!-- Categories Sidebar - Left Side -->
+	<aside class="col-lg-3 col-md-4 col-sm-12 mb-4 pl-lg-0 pl-md-0 categories-aside">
+		<div class="card">
+			<article class="filter-group">
+				<header class="card-header">
+					<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+						<i class="icon-control fa fa-chevron-down"></i>
+						<h6 class="title">Categories</h6>
+					</a>
+				</header>
+				<div class="filter-content collapse show" id="collapse_1">
+					<div class="card-body">
+						<ul class="list-menu">
+							<li><a href="{% url 'store' %}">All Products</a></li>
+							{% for category in links %}
+							<li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div> <!-- card-body.// -->
 				</div>
-				<div class="form-group text-right col-md-6">
-				  <label>Max</label>
-				  	<select class="mr-2 form-control">
-						<option value="50">$50</option>
-						<option value="100">$100</option>
-						<option value="150">$150</option>
-						<option value="200">$200</option>
-						<option value="500">$500</option>
-						<option value="1000">$1000</option>
-						<option value="2000">$2000+</option>
-					</select>
-				</div>
-				</div> <!-- form-row.// -->
-				<button class="btn btn-block btn-primary">Apply</button>
-			</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
-	
-</div> <!-- card.// -->
-
+			</article> <!-- filter-group  .// -->
+		</div> <!-- card.// -->
 	</aside> <!-- col.// -->
-	<main class="col-md-9">
+	
+	<!-- Products Section - Right Side -->
+	<main class="col-lg-9 col-md-8 col-sm-12">
+		<header class="border-bottom mb-4 pb-3">
+			<div class="form-inline">
+				<span class="mr-md-auto"><b>{{ product_count }}</b> items found</span>
+			</div>
+		</header><!-- sect-heading -->
 
-<header class="border-bottom mb-4 pb-3">
-		<div class="form-inline">
-			<span class="mr-md-auto"><b>{{ product_count }}</b> items found </span>
-			
-		</div>
-</header><!-- sect-heading -->
-
-<div class="row">
-	{% if products %}
-    {% for product in products %}
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-				
-				<a href="{{ product.get_url }}"><img src="{{ product.image1.url }}"></a>
-				
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-				<div class="fix-height">
-					<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
-					<div class="price-wrap mt-2">
-						<span class="price">Rs.{{ product.price }}</span>
-					</div> <!-- price-wrap.// -->
-					<div class="rating-stars">
-						{% if product_ratings|get_item:product.id %}
-							{% with rating=product_ratings|get_item:product.id %}
-								{% for i in '12345' %}
-									{% if forloop.counter <= rating.avg_rating|floatformat:0|add:"0" %}
-										<span style="color: #fbbf24;">★</span>
-									{% else %}
-										<span style="color: #e5e7eb;">★</span>
-									{% endif %}
-								{% endfor %}
-								<span style="font-size: 12px; color: #6b7280;">{{ rating.avg_rating|floatformat:1 }} ({{ rating.review_count }})</span>
-							{% endwith %}
-						{% else %}
-							<span style="font-size: 12px; color: #6b7280;">No ratings yet</span>
-						{% endif %}
-					</div>
+		{% if products %}
+		<div class="row">
+			{% for product in products %}
+			<div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 mb-4">
+				<div class="card">
+			<div class="badge">HOT SALE</div>
+			<div class="tilt">
+			<div class="img">
+				<a href="{{ product.get_url }}" class="img-wrap">
+				<img src="{{ product.image1.url }}">
+				</a>
+			</div>
+			</div>
+			<div class="info">
+			<h2 class="title"><a href="{{ product.get_url }}" class="title">{{ product.product_name|slice:":15"}}…</a></h2>
+			<p class="desc">{{ product.product_name|slice:":30"}}…</p>
+			<div class="feats">
+				{% if product.feature1 %}
+				<span class="feat">{{ product.feature1 }}</span>
+				{% endif %}
+				{% if product.feature2 %}
+				<span class="feat">{{ product.feature2 }}</span>
+				{% endif %}
+				{% if product.feature3 %}
+				<span class="feat">{{ product.feature3 }}</span>
+				{% endif %}
+			</div>
+			<div class="bottom">
+				<div class="price">
+				{% if product.old_price %}
+				<span class="old">Rs. {{ product.old_price }}</span>
+				{% endif %}
+				<span class="new">Rs. {{ product.price }}</span>
 				</div>
-				<a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Product</a>
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
-    {% endfor %}
+				<a href="{{ product.get_url }}" class="btnn">
+				<span>View Product</span>
+				<svg class="icon" width="20" height="20" viewBox="0 -960 960 960" fill="#e3e3e3" xmlns="http://www.w3.org/2000/svg">
+					<path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/>
+				</svg>
+				</a>
+			</div>
+			<div class="stock">
+				{% if product.stock <= 0 %}
+				<p class="text-danger">Out of Stock</p>
+				{% else %}
+				<p>In Stock</p>
+				{% endif %}
+			</div>
+			</div>
+			<div class="text-center" >
+			<div class="rating-star mb-3">
+					<!-- 1 star -->
+					<i class="fa fa-star{% if product.averageReview < 0.5%}-o {% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+					<!-- 2 star -->
+					<i class="fa fa-star{% if product.averageReview < 1.5%}-o {% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+					<!-- 3 star -->
+					<i class="fa fa-star{% if product.averageReview < 2.5%}-o {% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+					<!-- 4 star -->
+					<i class="fa fa-star{% if product.averageReview < 3.5%}-o {% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+					<!-- 5 star -->
+					<i class="fa fa-star{% if product.averageReview < 4.5%}-o {% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+			</div>
+
+			</div>
+				</div> <!-- card.// -->
+			</div> <!-- col.// -->
+			{% endfor %}
+		</div> <!-- row.// -->
 	{% else %}
 	<div class="col-md-12">
 		<h2>No products found</h2>
@@ -182,9 +135,9 @@
 </div> <!-- row end.// -->
 
 
-<nav class="mt-4" aria-label="Page navigation sample">
+<nav class="mt-4 justify-content-center" aria-label="Page navigation sample">
 	{% if products.has_other_pages %}
-	<ul class="pagination">
+	<ul class="pagination ">
 		{% if products.has_previous%}
 		<li class="page-item "><a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a></li>
 		{% else %}
@@ -215,6 +168,60 @@
 </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
+
+<style>
+
+/* Categories sidebar styles */
+.categories-aside { margin-left: -20px; }
+ @media (max-width: 768px) { .categories-aside { margin-left: 0; } }
+.list-menu { list-style: none; padding: 0; margin: 0; }
+.list-menu li a { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none !important; color: #000000; background: transparent; font-weight: 600; transition: color .2s; }
+.list-menu li a:hover { color: #007bff; background: transparent; }
+.list-menu li a.active { color: #007bff; background: transparent; }
+
+.card {
+  width: 100%; /* let Bootstrap column control width */
+  background: black;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.1);
+  transition: .3s;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  height: 100%; /* ensure cards have equal height in grid */
+}
+
+.card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.badge{position:absolute;top:10px;right:10px;background: linear-gradient(to right,  rgba(169,3,41,1) 0%,rgba(196,72,72,1) 44%,rgba(170,34,56,1) 100%);color:#fff;padding:5px 10px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.2);z-index:10}
+.tilt{overflow:hidden}
+.img{height:200px;overflow:hidden}
+.img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .img img{transform:scale(1.05)}
+.info{padding:20px; background-color: transparent;}
+.cat{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#71717A;margin-bottom:5px}
+.title{font-size:18px;font-weight:700;color:#18181B;margin:0 0 10px;letter-spacing:-.5px}
+.title a{text-decoration:none;color:#18181B}
+.desc{font-size:13px;color:#52525B;line-height:1.4;margin-bottom:12px}
+.feats{display:flex;gap:6px;margin-bottom:15px}
+.feat{font-size:10px;background:#F4F4F5;color:#71717A;padding:3px 8px;border-radius:10px;font-weight:500}
+.bottom{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.price{display:flex;flex-direction:column}
+.old{font-size:13px;text-decoration:line-through;color:#A1A1AA;margin-bottom:2px}
+.new{font-size:20px;font-weight:700;color:#18181B}
+.btnn{background:linear-gradient(45deg,#18181B,#27272A);color:#fff;border:none;border-radius:10px;padding:8px 15px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:.3s;box-shadow:0 3px 10px rgba(0,0,0,.1);text-decoration:none}
+.btnn:hover{background:linear-gradient(45deg,#27272A,#3F3F46);transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.15);color:#fff;text-decoration:none}
+.btnn:before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:.5s}
+.btnn:hover:before{left:100%}
+.icon{transition:transform .3s}
+.btnn:hover .icon{transform:rotate(-10deg) scale(1.1)}
+.meta{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #F4F4F5;padding-top:12px}
+.rcount{margin-left:6px;font-size:11px;color:#71717A}
+.stock{font-size:11px;font-weight:600;color:#22C55E}
+@media (max-width:400px){.card{width:90%}.title{font-size:16px}.img{height:180px}.bottom{flex-direction:column;align-items:flex-start;gap:10px}.price{margin-bottom:5px}.btn{width:100%;justify-content:center}}
+
+</style>
+
 
 
 {% endblock %}

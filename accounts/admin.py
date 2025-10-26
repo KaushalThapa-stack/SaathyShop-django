@@ -16,10 +16,16 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 class UserProfileAdmin(admin.ModelAdmin):
-    def thumbnail(self,object):
-        return format_html('<img src="{}" width="30" style="border-radius: 50%;">'.format(object.profile_picture.url))
-    thumbnail.short_description = 'Profile Picture'
-    list_display = ('thumbnail','user','city','state')
+    @admin.display(description='Profile Picture')
+    def thumbnail(self, obj):
+        try:
+            if obj.profile_picture and hasattr(obj.profile_picture, 'url'):
+                return format_html('<img src="{}" width="30" style="border-radius:50%;">', obj.profile_picture.url)
+        except Exception:
+            pass
+        return '—'
+
+    list_display = ('thumbnail', 'user', 'city', 'state')
 
 admin.site.register(Account, AccountAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
