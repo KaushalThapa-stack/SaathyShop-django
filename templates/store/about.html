@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Gadtola Electronics</title>
+  <link rel="stylesheet" href="about.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>About Us</h1>
+      <p><a href="index.html">Home</a> <i class="fa-solid fa-chevron-right"></i> About Us</p>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="about">
+    <div class="container">
+      <h2>Welcome to <span>Gadtola</span></h2>
+      <p>Your trusted destination for quality electronics in the Far-West. We offer a wide range of home appliances, smartphones, and accessories from top brands.</p>
+      <p>Whether you need a new TV, refrigerator, or mobile phone, we make sure you get the best value with genuine products and reliable after-sales service.</p>
+    </div>
+  </section>
+
+  <!-- Why Section -->
+  <section class="why">
+    <div class="container">
+      <h2>Why <span>Gadtola Electronics?</span></h2>
+      <p>Gadtola Electronics offers genuine products from trusted brands at competitive prices with regular offers. Our team provides expert advice to help you choose the right product for your needs. We ensure fast and reliable after-sales service and are conveniently located in Attariya.</p>
+      <p>Gadtola Electronics is where quality meets trust, giving you the right products, fair prices, and real support.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Start <span>shopping</span> Today!</h2>
+      <p>Find the best deals on TVs, refrigerators, mobiles, and home appliances.</p>
+      <a href="shop.html" class="btn">Shop Now</a>
+    </div>
+  </section>
+
+</body>
+</html>
+
+
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  background: url("https://images.unsplash.com/photo-1580894908361-967195033215") center/cover no-repeat;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.hero-content a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero-content i {
+  margin: 0 6px;
+}
+
+/* Sections */
+section {
+  padding: 70px 15px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+h2 span {
+  color: #007bff;
+}
+
+p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* CTA */
+.cta {
+  background-color: #f8f9fa;
+  padding: 80px 15px;
+}
+
+.cta .btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.cta .btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    height: 40vh;
+  }
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  section {
+    padding: 50px 10px;
+  }
+  h2 {
+    font-size: 1.6rem;
+  }
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+  .cta .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+</style>
